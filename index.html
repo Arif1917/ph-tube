@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,20 +9,21 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
+
 <body>
     <header>
         <nav class="w-11/12 mx-auto flex justify-between items-center border-[#17171720] border-b-2 py-5">
-           
-                <div>
-                    <img class="w-[120px]" src="Logo.png" alt="">
-                </div>
-                <div>
-                    <button class="btn bg-gray-300">Sort by view</button>
-                </div>
-                <div>
-                    <button class="btn bg-[#FF1F3D] text-white">Blogs</button>
-                </div>
-            
+
+            <div>
+                <img class="w-[120px]" src="Logo.png" alt="">
+            </div>
+            <div>
+                <button class="btn bg-gray-300">Sort by view</button>
+            </div>
+            <div>
+                <button class="btn bg-[#FF1F3D] text-white">Blogs</button>
+            </div>
+
         </nav>
         <div id="button-container" class=" py-5 flex justify-center gap-5">
             <button onclick="handleClick()" class="btn btn-sm bg-[#FF1F3D] text-white">All</button>
@@ -29,11 +31,36 @@
         </div>
     </header>
     <main>
-
+        <section class="w-11/12 mx-auto">
+            <div id="video-container" class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <!-- <div class="card bg-base-100 ">
+                    <figure class="relative">
+                        <img  class="" src="https://i.ibb.co/L1b6xSq/shape.jpg" />
+                        <span  class="absolute bottom-2 right-2 bg-black text-white p-2 rounded">3hrs 56 min ago</span>
+                    </figure>
+                    <div class="flex  gap-5 mt-7 ">
+                        <div><div class="avatar">
+                            <div class="ring-primary ring-offset-base-100 w-6 h-6 rounded-full ring ring-offset-2">
+                              <img class="" src="https://i.ibb.co/D9wWRM6/olivia.jpg" />
+                            </div>
+                          </div></div>
+                        <div>
+                            <h2 class="text-xl font-semibold">Python Full Course for free 🐍</h2>
+                            <div class="flex gap-2">
+                                <h4 class="font-normal text-sm">Awlad Hossain</h4>
+                            <img class="w-5 h-5" src="https://img.freepik.com/free-vector/blue-star-check-mark_78370-4478.jpg?ga=GA1.1.1653412531.1714570615&semt=ais_hybrid" alt="">
+                            </div>
+                            <h4 class="font-normal text-sm">91K views</h4>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </section>
     </main>
     <footer>
 
     </footer>
     <script src="js/load.js"></script>
 </body>
+
 </html>
