@@ -11,7 +11,7 @@ const loadCategoriesUI=(buttons)=>{
     for (const button of buttons) {
      const buttonDive = document.createElement('div');
      buttonDive.innerHTML=`
-     <button onclick='handleClick()' class="btn btn-sm hover:bg-[#FF1F3D] hover:text-white">${button.category}</button>
+     <button onclick='handleClick(${button.category_id})' class="btn btn-sm hover:bg-[#FF1F3D] hover:text-white">${button.category}</button>
      `;
      buttonContainer.append(buttonDive)
     };
@@ -27,14 +27,14 @@ const loadVideos = async ()=>{
 
 const showVideoUi= (videos) =>{
   const videoContainer =document.getElementById('video-container');
-
+  videoContainer.textContent = '';
    videos.forEach(video => {
    const videoCard = document.createElement('div');
    
    videoCard.innerHTML=`
    <div class="card bg-base-100 ">
                     <figure class="relative">
-                        <img  class="w-auto h-[250px]" src="${video.thumbnail}" />
+                        <img  class="w-auto h-[220px]" src="${video.thumbnail}" />
                         <span  class="absolute bottom-2 right-2 bg-black text-white p-2 rounded">3hrs 56 min ago</span>
                     </figure>
                     <div class="flex  gap-5 mt-7 ">
@@ -57,11 +57,18 @@ const showVideoUi= (videos) =>{
    videoContainer.appendChild(videoCard)
    });
 }
-const handleClick = ()=>{
-  console.log('click')
+const handleClick = async (id)=>{
+  console.log(id)
+
+  const noData = document.getElementById('no-data');
+  noData.classList.add('hidden')
+  const res =await fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`);
+  const data = await res.json();
+  const videos = data.category
+  showVideoUi(videos)
 }
 loadCategories()
-loadVideos()
+
 
 // {
 //   "category_id": "1001",
