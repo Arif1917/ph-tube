@@ -63,8 +63,11 @@ const showVideoUi = (videos) => {
                     <button onclick="showLoadVideos('${video.video_id}')" class="btn btn-block">show Details</button>
                 </div>
    `;
+   
     videoContainer.appendChild(videoCard)
+    
   });
+ 
 }
 
 const showLoadVideos =async (videoId)=>{
@@ -90,6 +93,7 @@ const openModal = (data)=>{
       </form>
     </div>
   ` ;
+  
   modalContainer.appendChild(modalContent);
 
   
@@ -98,11 +102,23 @@ const openModal = (data)=>{
   document.getElementById('my_modal_5').showModal();
 }
 const handleClick = async (id) => {
+  loadingSpinner(true)
   // noData.classList.add('hidden')
   const res = await fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`);
   const data = await res.json();
   const videos = data.category
+  loadingSpinner(false)
   showVideoUi(videos)
+  
 }
 loadCategories()
 
+const loadingSpinner=(isLoading)=>{
+const loadingSpinner = document.getElementById('loading-spinner');
+if(isLoading){
+  loadingSpinner.classList.remove('hidden')
+}
+else{
+  loadingSpinner.classList.add('hidden')
+}
+}
