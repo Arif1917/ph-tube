@@ -60,10 +60,42 @@ const showVideoUi = (videos) => {
                             <h4 class="font-normal text-sm"><span>${video.others.views}</span> views</h4>
                         </div>
                     </div>
+                    <button onclick="showLoadVideos('${video.video_id}')" class="btn btn-block">show Details</button>
                 </div>
    `;
     videoContainer.appendChild(videoCard)
   });
+}
+
+const showLoadVideos =async (videoId)=>{
+  const res = await fetch(`https://openapi.programming-hero.com/api/phero-tube/video/${videoId}`);
+  const video = await res.json();
+  const data = video.video;
+  openModal(data)
+}
+const openModal = (data)=>{
+  const modalContainer = document.getElementById('modal-container');
+  modalContainer.innerHTML = '';
+
+
+  modalContent = document.createElement('div');
+  modalContent.innerHTML=`
+  <p>${data.title}<p/>
+  <p>hello<p/>
+
+  <!-- Close Button -->
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn">Close</button>
+      </form>
+    </div>
+  ` ;
+  modalContainer.appendChild(modalContent);
+
+  
+
+  
+  document.getElementById('my_modal_5').showModal();
 }
 const handleClick = async (id) => {
   // noData.classList.add('hidden')
