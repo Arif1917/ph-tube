@@ -1,40 +1,48 @@
-const loadCategories=async()=>{
-   const res = await fetch('https://openapi.programming-hero.com/api/phero-tube/categories')
-   const data = await res.json()
-   const button = data.categories;
- loadCategoriesUI(button)
+const loadCategories = async () => {
+  const res = await fetch('https://openapi.programming-hero.com/api/phero-tube/categories')
+  const data = await res.json()
+  const button = data.categories;
+ 
+  loadCategoriesUI(button)
 }
 
-const loadCategoriesUI=(buttons)=>{
+const loadCategoriesUI = (buttons) => {
   // console.log(buttons)
-    const buttonContainer = document.getElementById('button-container');
-    for (const button of buttons) {
-     const buttonDive = document.createElement('div');
-     buttonDive.innerHTML=`
-     <button onclick='handleClick(${button.category_id})' class="btn btn-sm hover:bg-[#FF1F3D] hover:text-white">${button.category}</button>
+  const buttonContainer = document.getElementById('button-container');
+  for (const button of buttons) {
+    const buttonDive = document.createElement('div');
+    buttonDive.innerHTML = `
+     <button id="btn-${button.category_id}" onclick='handleClick(${button.category_id})' class="btn btn-sm hover:bg-[#FF1F3D] hover:text-white">${button.category}</button>
      `;
-     buttonContainer.append(buttonDive)
-    };
-    
+    buttonContainer.append(buttonDive)
+  };
+
 }
 
-const loadVideos = async ()=>{
-   const res =await fetch('https://openapi.programming-hero.com/api/phero-tube/videos');
-   const data = await res.json();
-   const videos = data.videos;
-   showVideoUi(videos)
+const loadVideos = async () => {
+  const res = await fetch('https://openapi.programming-hero.com/api/phero-tube/videos');
+  const data = await res.json();
+  const videos = data.videos;
+  showVideoUi(videos)
 }
 
-const showVideoUi= (videos) =>{
-  const videoContainer =document.getElementById('video-container');
+const showVideoUi = (videos) => {
+  const videoContainer = document.getElementById('video-container');
   videoContainer.textContent = '';
-   videos.forEach(video => {
-   const videoCard = document.createElement('div');
-   
-   videoCard.innerHTML=`
+  const noData = document.getElementById('no-data');
+  if (videos.length === 0) {
+    noData.classList.remove('hidden'); 
+  } else {
+    noData.classList.add('hidden');
+  }
+
+  videos.forEach(video => {
+    const videoCard = document.createElement('div');
+
+    videoCard.innerHTML = `
    <div class="card bg-base-100 ">
                     <figure class="relative">
-                        <img  class="w-auto h-[220px]" src="${video.thumbnail}" />
+                        <img  class="w-auto  md:h-[240px]" src="${video.thumbnail}" />
                         <span  class="absolute bottom-2 right-2 bg-black text-white p-2 rounded">3hrs 56 min ago</span>
                     </figure>
                     <div class="flex  gap-5 mt-7 ">
@@ -54,37 +62,15 @@ const showVideoUi= (videos) =>{
                     </div>
                 </div>
    `;
-   videoContainer.appendChild(videoCard)
-   });
+    videoContainer.appendChild(videoCard)
+  });
 }
-const handleClick = async (id)=>{
-  console.log(id)
-
-  const noData = document.getElementById('no-data');
-  noData.classList.add('hidden')
-  const res =await fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`);
+const handleClick = async (id) => {
+  // noData.classList.add('hidden')
+  const res = await fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`);
   const data = await res.json();
   const videos = data.category
   showVideoUi(videos)
 }
 loadCategories()
 
-
-// {
-//   "category_id": "1001",
-//   "video_id": "aaaa",
-//   "thumbnail": "https://i.ibb.co/L1b6xSq/shape.jpg",
-//   "title": "Shape of You",
-//   "authors": [
-//       {
-//           "profile_picture": "https://i.ibb.co/D9wWRM6/olivia.jpg",
-//           "profile_name": "Olivia Mitchell",
-//           "verified": ""
-//       }
-//   ],
-//   "others": {
-//       "views": "100K",
-//       "posted_date": "16278"
-//   },
-//   "description": "Dive into the rhythm of 'Shape of You,' a captivating track that blends pop sensibilities with vibrant beats. Created by Olivia Mitchell, this song has already gained 100K views since its release. With its infectious melody and heartfelt lyrics, 'Shape of You' is perfect for fans looking for an uplifting musical experience. Let the music take over as Olivia's vocal prowess and unique style create a memorable listening journey."
-// }
